@@ -13,6 +13,7 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="AlienController.cs" t="Include" />
           <e p="AsteroidBase.cs" t="Include" />
           <e p="AsteroidSpawner.cs" t="Include" />
           <e p="BigAsteroid.cs" t="Include" />

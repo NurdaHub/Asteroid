@@ -11,6 +11,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AsteroidBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AsteroidSpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BigAsteroid.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AlienController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -20,6 +21,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/BigAsteroid.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AsteroidBase.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AsteroidSpawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/AlienController.cs" />
       </list>
     </option>
   </component>
@@ -67,7 +69,7 @@
       <workItem from="1636979056246" duration="12158000" />
       <workItem from="1637057995359" duration="2568000" />
       <workItem from="1637132723747" duration="7372000" />
-      <workItem from="1637167621005" duration="4326000" />
+      <workItem from="1637167621005" duration="6006000" />
     </task>
     <servers />
   </component>
