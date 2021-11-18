@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject bigAsteroid;
-    [SerializeField] private GameObject middleAsteroid;
-    [SerializeField] private GameObject smallAsteroid;
     [SerializeField] private Camera m_OrthographicCamera;
+    [SerializeField] private BigAsteroid bigAsteroid;
 
     private int currentAsteroidsCount = 5;
     private float borderWidth;
     private float borderHeight;
+    private Pool<BigAsteroid> bigAsteroidsPool;
+    
     private Dictionary<GameObject, AsteroidBase> asteroidsDict;
     private Queue<GameObject> currentAsteroids;
 
@@ -25,29 +22,8 @@ public class AsteroidSpawner : MonoBehaviour
     private void OnEnable()
     {
         CalculateBoreder();
-        Vector3 currentSpawnPosition = BorderLeft.transform.position;
         
-        asteroidsDict = new Dictionary<GameObject, AsteroidBase>();
-        currentAsteroids = new Queue<GameObject>();
-        
-        
-        for (int i = 0; i < currentAsteroidsCount; i++)
-        {
-            var asteroid = Instantiate(bigAsteroid, currentSpawnPosition, Quaternion.identity, transform);
-            var asteroidScript = asteroid.GetComponent<AsteroidBase>();
-            
-            asteroid.SetActive(false);
-            
-            asteroidsDict.Add(asteroid, asteroidScript);
-            currentAsteroids.Enqueue(asteroid);
-        }
-
-        AsteroidBase.OnAsteroidOverBorder += ReturnAsteroid;
-        
-        for (int i = 0; i < currentAsteroidsCount; i++)
-        {
-            AsteroidSpawn();
-        }
+        bigAsteroidsPool = new Pool<BigAsteroid>(bigAsteroid, currentAsteroidsCount, this.transform);
     }
 
     private void AsteroidSpawn()
@@ -61,11 +37,7 @@ public class AsteroidSpawner : MonoBehaviour
         asteroidScript.Initialize();
     }
 
-    private void ReturnAsteroid(GameObject currentAsteroid)
-    {
-        currentAsteroid.SetActive(false);
-        currentAsteroids.Enqueue(currentAsteroid);
-    }
+    
 
     private Vector3 CalculatePosition()
     {

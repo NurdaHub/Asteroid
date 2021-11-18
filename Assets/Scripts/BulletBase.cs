@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletBase : MonoBehaviour
 {
     private Rigidbody2D bulletRB;
     private float bulletSpeed = 150f;

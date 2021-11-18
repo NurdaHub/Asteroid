@@ -8,16 +8,20 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float rotateSpeed;
     [SerializeField] private float impulseSpeed;
     [SerializeField] private float angularSpeed;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform bulletParent;
-    [SerializeField] private Transform bulletSpawnPos;
+    [SerializeField] private BulletController bulletPrefab;
+    [SerializeField] private Transform bulletSpawn;
+    [SerializeField] private Transform bulletsParent;
     
     private Rigidbody2D shipRB;
+    private Pool<BulletController> bulletsPool;
+    private int defaultBulletsCount = 10;
+    
     public bool isMouseControl;
 
     private void OnEnable()
     {
         shipRB = GetComponent<Rigidbody2D>();
+        bulletsPool = new Pool<BulletController>(bulletPrefab, defaultBulletsCount, bulletsParent);
     }
 
     private void FixedUpdate()
@@ -72,6 +76,7 @@ public class ShipController : MonoBehaviour
     private void Shoot()
     {
         Debug.Log("Shoot");
-        Instantiate(bulletPrefab, bulletSpawnPos.position, transform.rotation, bulletParent);
+        var bullet = bulletsPool.GetFreeElement();
+        bullet.InitBullet(bulletSpawn.position, this.transform.rotation);
     }
 }

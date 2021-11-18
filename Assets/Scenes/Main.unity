@@ -223,10 +223,9 @@ MonoBehaviour:
   rotateSpeed: 2
   impulseSpeed: 0.05
   angularSpeed: 4
-  bulletPrefab: {fileID: 4911369889153481234, guid: 2b09bd3e339655e4d9ba892af5ce9155,
-    type: 3}
-  bulletParent: {fileID: 900133843}
-  bulletSpawnPos: {fileID: 1234006629}
+  bulletPrefab: {fileID: 0}
+  bulletSpawn: {fileID: 0}
+  bulletsParent: {fileID: 0}
   isMouseControl: 0
 --- !u!212 &501906187
 SpriteRenderer:
@@ -400,7 +399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900133842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24932876, y: -0.02515896, z: -0.057366546}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -485,7 +484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1234006628
 GameObject:
@@ -596,7 +595,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1847306917
 GameObject:
@@ -677,7 +676,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1890673575
 GameObject:
@@ -734,6 +733,36 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1906394833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906394834}
+  m_Layer: 0
+  m_Name: AlienSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1906394834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906394833}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2004673067
@@ -765,11 +794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b462d0b29becb14eb4bd2cdd10eb4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bigAsteroid: {fileID: 2100066061700696272, guid: 5bd788329e57e9c4694b7d793e1871dd,
-    type: 3}
-  middleAsteroid: {fileID: 0}
-  smallAsteroid: {fileID: 0}
   m_OrthographicCamera: {fileID: 519420031}
+  bigAsteroid: {fileID: 5105890242960886066, guid: 5bd788329e57e9c4694b7d793e1871dd,
+    type: 3}
   BorderLeft: {fileID: 1612405103}
   BorderRight: {fileID: 1847306917}
   BorderTop: {fileID: 1088016231}
@@ -867,5 +894,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -24,6 +24,7 @@ public class AsteroidBase : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
             Debug.Log("is bullet");
         }
     }
