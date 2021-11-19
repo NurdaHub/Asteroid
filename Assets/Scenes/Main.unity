@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 501906186}
   - component: {fileID: 501906185}
   - component: {fileID: 501906184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spaceship
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -223,9 +223,10 @@ MonoBehaviour:
   rotateSpeed: 2
   impulseSpeed: 0.05
   angularSpeed: 4
-  bulletPrefab: {fileID: 0}
-  bulletSpawn: {fileID: 0}
-  bulletsParent: {fileID: 0}
+  bulletPrefab: {fileID: 1937373010755149303, guid: 2b09bd3e339655e4d9ba892af5ce9155,
+    type: 3}
+  bulletSpawn: {fileID: 1234006629}
+  bulletsParent: {fileID: 900133843}
   isMouseControl: 0
 --- !u!212 &501906187
 SpriteRenderer:
@@ -495,7 +496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1234006629}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +592,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612405103}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -672,7 +673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847306917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -688,6 +689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1890673577}
   - component: {fileID: 1890673576}
+  - component: {fileID: 1890673578}
   m_Layer: 0
   m_Name: Border
   m_TagString: Border
@@ -735,6 +737,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1890673578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890673575}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981723accdebf62428fb770a4609590e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906394833
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,6 +758,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1906394834}
+  - component: {fileID: 1906394835}
   m_Layer: 0
   m_Name: AlienSpawner
   m_TagString: Untagged
@@ -765,6 +780,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1906394835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906394833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe445fe1b75813428a9e200edeefe1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alienPrefab: {fileID: 632549098617024118, guid: 711d84cace1a0cd46970e0ab0c61bf52,
+    type: 3}
+  player: {fileID: 501906183}
+  bulletController: {fileID: 1937373010755149303, guid: 1ddfbfbb50fb0944cb2db2266ad12161,
+    type: 3}
 --- !u!1 &2004673067
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +828,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OrthographicCamera: {fileID: 519420031}
   bigAsteroid: {fileID: 5105890242960886066, guid: 5bd788329e57e9c4694b7d793e1871dd,
+    type: 3}
+  middleAsteroid: {fileID: 3572984434719325708, guid: 2cd626dacad616d4a89bbaa2c4514322,
+    type: 3}
+  smallAsteroid: {fileID: 3275794667782855090, guid: b0bdacdcbd2fadb488b13ccbeb3e5a47,
     type: 3}
   BorderLeft: {fileID: 1612405103}
   BorderRight: {fileID: 1847306917}

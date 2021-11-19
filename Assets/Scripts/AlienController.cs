@@ -3,40 +3,46 @@ using UnityEngine;
 
 public class AlienController : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;
     private Rigidbody2D alienRB;
-    private Vector3 playerPosition;
+    private GameObject player;
+    
+    private Pool<BulletController> bulletsPool;
 
-    public void AlienInit(Transform _playerTransform)
+    public void AlienInit(GameObject _player, bool _isLeft, Pool<BulletController> _bulletsPool)
     {
-        var alienSpeed = Random.Range(70f, 100f);
-        playerPosition = _playerTransform.position;
+        var alienSpeed = Random.Range(40f, 60f);
+        var direction = _isLeft ? transform.right : -transform.right;
+        
+        player = _player;
         alienRB = GetComponent<Rigidbody2D>();
-        alienRB.AddForce(transform.right * alienSpeed);
+        alienRB.AddForce(direction * alienSpeed);
+        bulletsPool = _bulletsPool;
 
-        StartCoroutine(ShootWithDelay());
+        StartCoroutine(WaitTime());
     }
 
-    private IEnumerator ShootWithDelay()
+    private IEnumerator WaitTime()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(Random.Range(2, 5));
-            Shoot();
-        }
+        var randomDelay = Random.Range(2, 5);
+        yield return new WaitForSeconds(randomDelay);
+        
+        Shoot();
     }
 
     private void Shoot()
     {
         var bulletRotation = CalculateRotation();
-        var bullet = Instantiate(bulletPrefab);
-        var bulletController = bullet.GetComponent<BulletController>();
-        bulletController.InitBullet(this.transform.position, bulletRotation);
+        var bullet = bulletsPool.GetFreeElement();
+        
+        bullet.InitBullet(this.transform.position, bulletRotation);
+
+        StartCoroutine(WaitTime());
     }
     
     private Quaternion CalculateRotation()
     {
-        var angle = Mathf.Atan2(playerPosition.x, playerPosition.y) * Mathf.Rad2Deg;
+        var direction = player.transform.position - transform.position;
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         var currentRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
 
         return currentRotation;
@@ -45,12 +51,18 @@ public class AlienController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Asteroid"))
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         
         if (collision.gameObject.CompareTag("Bullet"))
         {
             collision.gameObject.SetActive(false);
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Border"))
+            Destroy(this.gameObject);
     }
 }

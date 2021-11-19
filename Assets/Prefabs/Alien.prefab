@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 714627150471865334}
   - component: {fileID: 1575332220707079169}
   - component: {fileID: 3886007978338364987}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Alien
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5bdc1cad0592e34fac1d89f44ba3c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 4911369889153481234, guid: 1ddfbfbb50fb0944cb2db2266ad12161,
+    type: 3}
 --- !u!50 &3886007978338364987
 Rigidbody2D:
   serializedVersion: 4

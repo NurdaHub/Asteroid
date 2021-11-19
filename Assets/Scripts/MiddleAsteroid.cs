@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BigAsteroid : AsteroidBase
+public class MiddleAsteroid : AsteroidBase
 {
     private int brokenPieceCount = 2;
 
@@ -14,18 +15,8 @@ public class BigAsteroid : AsteroidBase
     {
         for (int i = 0; i < brokenPieceCount; i++)
         {
-            var asteroid = middleAsteroidsPool.GetFreeElement();
+            var asteroid = smallAsteroidsPool.GetFreeElement();
             asteroid.Initialize(this.transform.position, middleAsteroidsPool, smallAsteroidsPool);
         }
     }
-
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     Debug.Log("collision enter");
-    //     
-    //     if (collision.gameObject.CompareTag("Bullet"))
-    //     {
-    //         
-    //     }
-    // }
 }
