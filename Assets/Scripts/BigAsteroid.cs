@@ -3,29 +3,17 @@ using UnityEngine;
 
 public class BigAsteroid : AsteroidBase
 {
-    private int brokenPieceCount = 2;
+    public Action<Transform> OnBigAsteroidBroke;
 
-    private void OnEnable()
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        OnAsteroidBroke += AsteroidBroke;
-    }
-
-    private void AsteroidBroke()
-    {
-        for (int i = 0; i < brokenPieceCount; i++)
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            var asteroid = middleAsteroidsPool.GetFreeElement();
-            asteroid.Initialize(this.transform.position, middleAsteroidsPool, smallAsteroidsPool);
+            Debug.Log("big collision enter   " + transform.position);
+            OnBigAsteroidBroke?.Invoke(transform);
+            gameObject.SetActive(false);
         }
+        
+        base.OnCollisionEnter2D(collision);
     }
-
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     Debug.Log("collision enter");
-    //     
-    //     if (collision.gameObject.CompareTag("Bullet"))
-    //     {
-    //         
-    //     }
-    // }
 }

@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class MiddleAsteroid : AsteroidBase
 {
-    private int brokenPieceCount = 2;
+    public Action<Transform> OnMiddleAsteroidBroke;
 
-    private void OnEnable()
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        OnAsteroidBroke += AsteroidBroke;
-    }
-
-    private void AsteroidBroke()
-    {
-        for (int i = 0; i < brokenPieceCount; i++)
+        Debug.Log("big collision enter");
+        
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            var asteroid = smallAsteroidsPool.GetFreeElement();
-            asteroid.Initialize(this.transform.position, middleAsteroidsPool, smallAsteroidsPool);
+            OnMiddleAsteroidBroke?.Invoke(transform);
+            gameObject.SetActive(false);
         }
+        
+        base.OnCollisionEnter2D(collision);
     }
 }

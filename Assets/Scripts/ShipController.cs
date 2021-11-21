@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
@@ -15,8 +12,7 @@ public class ShipController : MonoBehaviour
     private Rigidbody2D shipRB;
     private Pool<BulletController> bulletsPool;
     private int defaultBulletsCount = 10;
-    
-    public bool isMouseControl;
+    private bool isMouseControl;
 
     private void OnEnable()
     {
@@ -78,5 +74,24 @@ public class ShipController : MonoBehaviour
         Debug.Log("Shoot");
         var bullet = bulletsPool.GetFreeElement();
         bullet.InitBullet(bulletSpawn.position, this.transform.rotation);
+    }
+
+    public void SwitchControl(bool value)
+    {
+        isMouseControl = value;
+    }
+
+    private void ShipDestroyed()
+    {
+        
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var collisionGO = collision.gameObject;
+        var isDestroyer = collisionGO.CompareTag("Asteroid") || collisionGO.CompareTag("Bullet") || collisionGO.CompareTag("Alien");
+        
+        if (isDestroyer)
+            ShipDestroyed();
     }
 }

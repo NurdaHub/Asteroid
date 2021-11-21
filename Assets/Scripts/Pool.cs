@@ -8,12 +8,6 @@ public class Pool<T> where T : MonoBehaviour
 
     private List<T> poolList;
 
-    public Pool(T _prefab, int _count)
-    {
-        this.prefab = _prefab;
-        CreatePool(_count);
-    }
-
     public Pool(T _prefab, int _count, Transform _prefabParent)
     {
         this.prefab = _prefab;
@@ -65,5 +59,16 @@ public class Pool<T> where T : MonoBehaviour
             return element;
 
         return CreateObject(true);
+    }
+
+    public bool HasActiveElement()
+    {
+        foreach (var item in poolList)
+        {
+            if (item.gameObject.activeInHierarchy)
+                return true;
+        }
+
+        return false;
     }
 }

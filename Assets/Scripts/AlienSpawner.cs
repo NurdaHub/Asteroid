@@ -5,7 +5,7 @@ public class AlienSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject alienPrefab;
     [SerializeField] private GameObject player;
-    [SerializeField] private BulletController bulletController;
+    [SerializeField] private BulletAlien bulletAlien;
 
     private int defaultBulletsCount = 3;
     private float borderWidth;
@@ -13,14 +13,14 @@ public class AlienSpawner : MonoBehaviour
     private float minPos;
     private bool isLeft;
     
-    private Pool<BulletController> bulletsPool;
+    private Pool<BulletAlien> bulletsPool;
 
-    private void OnEnable()
+    public void Init()
     {
         CalculateBoreder();
         StartCoroutine(WaitTime());
         
-        bulletsPool = new Pool<BulletController>(bulletController, defaultBulletsCount, this.transform);
+        bulletsPool = new Pool<BulletAlien>(bulletAlien, defaultBulletsCount, this.transform);
     }
 
     private void AlienInit()

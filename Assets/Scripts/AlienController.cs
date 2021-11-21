@@ -6,9 +6,9 @@ public class AlienController : MonoBehaviour
     private Rigidbody2D alienRB;
     private GameObject player;
     
-    private Pool<BulletController> bulletsPool;
+    private Pool<BulletAlien> bulletsPool;
 
-    public void AlienInit(GameObject _player, bool _isLeft, Pool<BulletController> _bulletsPool)
+    public void AlienInit(GameObject _player, bool _isLeft, Pool<BulletAlien> _bulletsPool)
     {
         var alienSpeed = Random.Range(40f, 60f);
         var direction = _isLeft ? transform.right : -transform.right;
@@ -50,14 +50,11 @@ public class AlienController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Asteroid"))
-            Destroy(this.gameObject);
+        var collisionGO = collision.gameObject;
+        var isDestroyer = collisionGO.CompareTag("Asteroid") || collisionGO.CompareTag("Bullet") || collisionGO.CompareTag("Player");
         
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            collision.gameObject.SetActive(false);
+        if (isDestroyer)
             Destroy(this.gameObject);
-        }
     }
     
     private void OnTriggerExit2D(Collider2D collider)

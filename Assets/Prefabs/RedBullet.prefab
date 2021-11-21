@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 314520495096809034}
   - component: {fileID: 2933129548584414716}
   - component: {fileID: 6382934487277195607}
-  - component: {fileID: 1937373010755149303}
   - component: {fileID: 4674566659038007609}
+  - component: {fileID: 6869572505644610882}
   m_Layer: 10
   m_Name: RedBullet
   m_TagString: EnemyBullet
@@ -132,18 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13666667, y: 0.13666667}
   m_EdgeRadius: 0
---- !u!114 &1937373010755149303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4911369889153481234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a24ab341d9b6434d862581ebc3051ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4674566659038007609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,5 +142,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 741a2a045be4fc64997c5cbc38b87803, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6869572505644610882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911369889153481234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7220d539dded19f4eb08f8686b471618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
