@@ -4,17 +4,25 @@ using UnityEngine;
 public class SmallAsteroid : AsteroidBase
 {
     public Action OnSmallAsteroidBroke;
-    
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    private int points = 100;
+
+    private void OnBroke()
     {
-        var collisionGO = collision.gameObject;
-        var isDestroyer = collisionGO.CompareTag("Alien") || collisionGO.CompareTag("Player") || collisionGO.CompareTag("Bullet");
+        gameObject.SetActive(false);
+        OnSmallAsteroidBroke?.Invoke();
+    }
+    
+    protected override void OnTriggerEnter2D(Collider2D collider)
+    {
+        var isDestroyer = collider.CompareTag("Alien") || collider.CompareTag("Player");
         
         if (isDestroyer)
+            OnBroke();
+
+        if (collider.CompareTag("Bullet"))
         {
-            gameObject.SetActive(false);
-            OnSmallAsteroidBroke?.Invoke();
-            Debug.Log("broke   " + transform.position);
+            UIController.currentScore += points;
+            OnBroke();
         }
     }
 }

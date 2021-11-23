@@ -4,17 +4,17 @@ using UnityEngine;
 public class MiddleAsteroid : AsteroidBase
 {
     public Action<Transform> OnMiddleAsteroidBroke;
+    private int points = 50;
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("big collision enter");
-        
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (collider.gameObject.CompareTag("Bullet"))
         {
+            UIController.currentScore += points;
             OnMiddleAsteroidBroke?.Invoke(transform);
             gameObject.SetActive(false);
         }
         
-        base.OnCollisionEnter2D(collision);
+        base.OnTriggerEnter2D(collider);
     }
 }

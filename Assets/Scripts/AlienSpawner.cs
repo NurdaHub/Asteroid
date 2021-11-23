@@ -1,36 +1,47 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AlienSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject alienPrefab;
     [SerializeField] private GameObject player;
     [SerializeField] private BulletAlien bulletAlien;
+    [SerializeField] private AudioSource explodeAudio;
 
     private int defaultBulletsCount = 3;
     private float borderWidth;
     private float borderHeight;
     private float minPos;
     private bool isLeft;
+    private Coroutine currentCoroutine;
+    private GameObject currentAlien;
     
     private Pool<BulletAlien> bulletsPool;
 
-    public void Init()
+    private void Awake()
     {
         CalculateBoreder();
-        StartCoroutine(WaitTime());
-        
         bulletsPool = new Pool<BulletAlien>(bulletAlien, defaultBulletsCount, this.transform);
     }
 
-    private void AlienInit()
+    public void Init()
+    {
+        DeleteOldAlien();
+        bulletsPool.DeactivateAllElements();
+        currentCoroutine = StartCoroutine(WaitTime());
+    }
+
+    private void AlienSpawn()
     {
         isLeft = Random.Range(0, 2) != 0;
-        var alien = Instantiate(alienPrefab, CalculatePosition(), Quaternion.identity, this.transform);
-        var alienController = alien.GetComponent<AlienController>();
+        currentAlien = Instantiate(alienPrefab, CalculatePosition(), Quaternion.identity, this.transform);
+        var alienController = currentAlien.GetComponent<AlienController>();
         alienController.AlienInit(player, isLeft, bulletsPool);
+        alienController.OnAlienDestroyed += AlienDestroyed;
 
-        StartCoroutine(WaitTime());
+        currentCoroutine = StartCoroutine(WaitTime());
     }
 
     private IEnumerator WaitTime()
@@ -39,7 +50,7 @@ public class AlienSpawner : MonoBehaviour
         Debug.Log("randomDelay  " + randomDelay);
         yield return new WaitForSeconds(randomDelay);
         
-        AlienInit();
+        AlienSpawn();
     }
 
     private void CalculateBoreder()
@@ -59,5 +70,19 @@ public class AlienSpawner : MonoBehaviour
         var currentSpawnPosition = new Vector3(xPos, yPos, 0);
 
         return currentSpawnPosition;
+    }
+
+    private void AlienDestroyed()
+    {
+        explodeAudio.Play();
+    }
+
+    private void DeleteOldAlien()
+    {
+        if (currentCoroutine != null)
+            StopCoroutine(currentCoroutine);
+        
+        if (currentAlien != null)
+            Destroy(currentAlien);
     }
 }

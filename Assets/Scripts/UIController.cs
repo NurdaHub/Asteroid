@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,55 +11,65 @@ public class UIController : MonoBehaviour
     [SerializeField] private AlienSpawner alienSpawner;
     [SerializeField] private AsteroidSpawner asteroidSpawner;
     [SerializeField] private Button playButton;
-    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button resumeButton;
+    [SerializeField] private Button quitButton;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Toggle controlToggle;
-    [SerializeField] private Toggle soundToggle;
-    [SerializeField] private GameObject settingsGO;
+    [SerializeField] private GameObject menuGO;
+    [SerializeField] private GameObject gameOverGO;
 
     private bool isPaused;
 
-    private void OnEnable()
+    private void Awake()
     {
         playButton.onClick.AddListener(StartGame);
-        settingsButton.onClick.AddListener(SettingsPanel);
+        resumeButton.onClick.AddListener(ResumeGame);
         controlToggle.onValueChanged.AddListener(SwitchControl);
-        soundToggle.onValueChanged.AddListener(SwitchSound);
+        quitButton.onClick.AddListener(QuitGame);
+
+        shipController.OnGameOver += GameOver;
     }
 
     private void Update()
     {
         scoreText.text = currentScore.ToString();
         
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            if (!isPaused)
-            {
-                Time.timeScale = 0;
-                MenuViewShow(true);
-                isPaused = true;
-            }
-            else
-            {
-                MenuViewShow(false);
-                isPaused = false;
-                Time.timeScale = 1;
-            }
-        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ResumeGame();
     }
 
     private void StartGame()
     {
-        settingsGO.SetActive(false);
+        Time.timeScale = 1;
+        currentScore = 0;
+
         MenuViewShow(false);
+        resumeButton.gameObject.SetActive(true);
         shipController.gameObject.SetActive(true);
+        shipController.Init();
         alienSpawner.Init();
         asteroidSpawner.Init();
     }
 
-    private void SettingsPanel()
+    private void ResumeGame()
     {
-        settingsGO.SetActive(true);
+        if (!isPaused)
+        {
+            Time.timeScale = 0;
+            MenuViewShow(true);
+            isPaused = true;
+        }
+        else
+        {
+            MenuViewShow(false);
+            isPaused = false;
+            Time.timeScale = 1;
+        }
+    }
+    
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 
     private void SwitchControl(bool isOn)
@@ -68,18 +79,34 @@ public class UIController : MonoBehaviour
 
     private void SwitchSound(bool isOn)
     {
-        
+        AudioListener.volume = isOn ? 1f : 0f;
     }
 
     private void MenuViewShow(bool isActive)
     {
-        isPaused = isActive;
-        playButton.gameObject.SetActive(isActive);
-        settingsButton.gameObject.SetActive(isActive);
+        menuGO.SetActive(isActive);
+    }
+
+    private void GameOver()
+    {
+        resumeButton.gameObject.SetActive(false);
+        gameOverGO.SetActive(true);
+
+        StartCoroutine(AfterGameOver());
+    }
+
+    private IEnumerator AfterGameOver()
+    {
+        yield return new WaitForSeconds(5);
+        gameOverGO.SetActive(false);
+        MenuViewShow(true);
     }
 
     private void OnDisable()
     {
-        
+        playButton.onClick.RemoveListener(StartGame);
+        resumeButton.onClick.RemoveListener(ResumeGame);
+        controlToggle.onValueChanged.RemoveListener(SwitchControl);
+        quitButton.onClick.RemoveListener(QuitGame);
     }
 }

@@ -14,17 +14,11 @@ public class AsteroidBase : MonoBehaviour
         asteroidRB.AddForce(transform.up * asteroidSpeed);
     }
 
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("collision enter  " + transform.position);
-        var collisionGO = collision.gameObject;
-        var isDestroyer = collisionGO.CompareTag("Alien") || collisionGO.CompareTag("Player");
-        
-        if (isDestroyer)
-        {
-            gameObject.SetActive(false);
+        var isDestroyer = collider.CompareTag("Alien") || collider.CompareTag("Player");
 
-            Debug.Log("broke   " + transform.position);
-        }
+        if (isDestroyer)
+            gameObject.SetActive(false);
     }
 }

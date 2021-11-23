@@ -4,7 +4,7 @@ public class BorderSize : MonoBehaviour
 {
     private void OnEnable()
     {
-        var height = (2f * Camera.main.orthographicSize) + 3f;
+        var height = (2f * Camera.main.orthographicSize);
         var width = height * Camera.main.aspect;
         var collider = GetComponent<BoxCollider2D>();
         

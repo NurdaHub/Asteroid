@@ -1,12 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AlienController : MonoBehaviour
 {
     private Rigidbody2D alienRB;
     private GameObject player;
-    
     private Pool<BulletAlien> bulletsPool;
+    private int points = 200;
+
+    public Action OnAlienDestroyed;
 
     public void AlienInit(GameObject _player, bool _isLeft, Pool<BulletAlien> _bulletsPool)
     {
@@ -48,18 +52,23 @@ public class AlienController : MonoBehaviour
         return currentRotation;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnBroke()
     {
-        var collisionGO = collision.gameObject;
-        var isDestroyer = collisionGO.CompareTag("Asteroid") || collisionGO.CompareTag("Bullet") || collisionGO.CompareTag("Player");
-        
-        if (isDestroyer)
-            Destroy(this.gameObject);
+        OnAlienDestroyed?.Invoke();
+        Destroy(this.gameObject);
     }
     
-    private void OnTriggerExit2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Border"))
-            Destroy(this.gameObject);
+        var isDestroyer = collider.CompareTag("Asteroid") || collider.CompareTag("Player");
+        
+        if (isDestroyer)
+            OnBroke();
+
+        if (collider.CompareTag("Bullet"))
+        {
+            UIController.currentScore += points;
+            OnBroke();
+        }
     }
 }

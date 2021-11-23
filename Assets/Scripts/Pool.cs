@@ -71,4 +71,10 @@ public class Pool<T> where T : MonoBehaviour
 
         return false;
     }
+
+    public void DeactivateAllElements()
+    {
+        foreach (var item in poolList)
+            item.gameObject.SetActive(false);
+    }
 }

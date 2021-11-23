@@ -1,53 +1,64 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private BigAsteroid bigAsteroid;
     [SerializeField] private MiddleAsteroid middleAsteroid;
     [SerializeField] private SmallAsteroid smallAsteroid;
+    [SerializeField] private AudioSource bigAsteroidAudio;
+    [SerializeField] private AudioSource middleAsteroidAudio;
+    [SerializeField] private AudioSource smallAsteroidAudio;
 
     private int currentAsteroidsCount = 2;
     private int brokenPieceCount = 2;
+    private int poolAsteroidCount = 6;
     private float borderWidth;
     private float borderHeight;
     private Pool<BigAsteroid> bigAsteroidsPool;
     private Pool<MiddleAsteroid> middleAsteroidsPool;
     private Pool<SmallAsteroid> smallAsteroidsPool;
-    
-    public GameObject BorderLeft;
-    public GameObject BorderRight;
-    public GameObject BorderTop;
-    public GameObject BorderBottom;
 
     public static float maxDistance;
 
-    public void Init()
+    private void Awake()
     {
         CalculateBoreder();
         
-        bigAsteroidsPool = new Pool<BigAsteroid>(bigAsteroid, currentAsteroidsCount, this.transform);
-        middleAsteroidsPool = new Pool<MiddleAsteroid>(middleAsteroid, currentAsteroidsCount, this.transform);
-        smallAsteroidsPool = new Pool<SmallAsteroid>(smallAsteroid, currentAsteroidsCount, this.transform);
+        bigAsteroidsPool = new Pool<BigAsteroid>(bigAsteroid, poolAsteroidCount, this.transform);
+        middleAsteroidsPool = new Pool<MiddleAsteroid>(middleAsteroid, poolAsteroidCount, this.transform);
+        smallAsteroidsPool = new Pool<SmallAsteroid>(smallAsteroid, poolAsteroidCount, this.transform);
+    }
+
+    public void Init()
+    {
+        currentAsteroidsCount = 2;
+        DeactivateAllPools();
         SpawnBigAsteroid();
     }
 
     private void SpawnBigAsteroid()
     {
+        Debug.Log("SpawnMiddleAsteroid   " +currentAsteroidsCount);
         for (int i = 0; i < currentAsteroidsCount; i++)
         {
             var asteroid = bigAsteroidsPool.GetFreeElement();
-            var randomAngle = Random.Range(0, 360);
-
             var position = CalculatePosition();
             var rotation = BigAsteroidRotation(position);
             
             asteroid.Initialize(position, rotation);
             asteroid.OnBigAsteroidBroke += SpawnMiddleAsteroid;
         }
+        
+        currentAsteroidsCount++;
     }
 
     private void SpawnMiddleAsteroid(Transform _transform)
     {
+        bigAsteroidAudio.Play();
+        
         for (int i = 0; i < brokenPieceCount; i++)
         {
             var asteroid = middleAsteroidsPool.GetFreeElement();
@@ -61,6 +72,8 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void SpawnSmallAsteroid(Transform _transform)
     {
+        middleAsteroidAudio.Play();
+        
         for (int i = 0; i < brokenPieceCount; i++)
         {
             var asteroid = smallAsteroidsPool.GetFreeElement();
@@ -68,18 +81,43 @@ public class AsteroidSpawner : MonoBehaviour
             var rotation = CalculateRotation(_transform, i);
             
             asteroid.Initialize(position, rotation);
-            asteroid.OnSmallAsteroidBroke += CheckActiveAsteroids;
+            asteroid.OnSmallAsteroidBroke += SmallAsteroidBroke;
         }
     }
 
-    private void CheckActiveAsteroids()
+    private void SmallAsteroidBroke()
     {
-        var hasActiveElement = smallAsteroidsPool.HasActiveElement();
+        smallAsteroidAudio.Play();
+
+        var hasActiveElement = CheckActiveAsteroid();
+        Debug.Log(hasActiveElement);
         if (hasActiveElement)
             return;
 
-        currentAsteroidsCount++;
+        StartCoroutine(NextLevel());
+    }
+
+    private IEnumerator NextLevel()
+    {
+        yield return new WaitForSeconds(2);
         SpawnBigAsteroid();
+    }
+
+    private bool CheckActiveAsteroid()
+    {
+        var hasActiveSmallAsteroid = smallAsteroidsPool.HasActiveElement();
+        if (hasActiveSmallAsteroid)
+            return true;
+        
+        var hasActiveMiddleAsteroid = middleAsteroidsPool.HasActiveElement();
+        if (hasActiveMiddleAsteroid)
+            return true;
+        
+        var hasActiveBigAsteroid = bigAsteroidsPool.HasActiveElement();
+        if (hasActiveBigAsteroid)
+            return true;
+
+        return false;
     }
 
     private Vector3 CalculatePosition()
@@ -119,6 +157,13 @@ public class AsteroidSpawner : MonoBehaviour
         return currentRotation;
     }
 
+    private void DeactivateAllPools()
+    {
+        bigAsteroidsPool.DeactivateAllElements();
+        middleAsteroidsPool.DeactivateAllElements();
+        smallAsteroidsPool.DeactivateAllElements();
+    }
+
     private void CalculateBoreder()
     {
         float height = 2f * Camera.main.orthographicSize;
@@ -127,20 +172,5 @@ public class AsteroidSpawner : MonoBehaviour
         borderWidth = width / 2f + 1f;
         borderHeight = height / 2f + 1f;
         maxDistance = width;
-
-        float leftBorderPosition = -1f * (width / 2) - 1f;
-        float rightBorderPosition = width / 2 + 1f;
-        
-        // BorderLeft.transform.position = new Vector3(leftBorderPosition, 0, 0);
-        // BorderRight.transform.position = new Vector3(rightBorderPosition, 0, 0);
-
-        float spriteWidth = BorderTop.GetComponent<SpriteRenderer>().bounds.size.x;
-        float ratio = width / spriteWidth;
-        
-        BorderTop.transform.localScale = new Vector3(ratio, 1, 1);
-        BorderBottom.transform.localScale = new Vector3(ratio, 1, 1);
-        
-        Debug.Log($"height  {height} ||| width  {width}");
-        Debug.Log($"spriteWidth  {spriteWidth} ||| ratio  {ratio}");
     }
 }

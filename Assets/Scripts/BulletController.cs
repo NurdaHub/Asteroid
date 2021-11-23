@@ -7,9 +7,6 @@ public class BulletController : BulletBase
         var isDestroyer = collider.CompareTag("Asteroid") || collider.CompareTag("Alien");
         
         if (isDestroyer)
-        {
-            UIController.currentScore++;
             this.gameObject.SetActive(false);
-        }
     }
 }

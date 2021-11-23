@@ -1,33 +1,24 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ToggleSwitcher : MonoBehaviour
 {
-    [SerializeField] private Toggle firstToggle;
-    [SerializeField] private Toggle secondToggle;
+    [SerializeField] private TextMeshProUGUI toggleText;
     
-    
+    private Toggle toggle;
     private bool _isOn;
-    
-    public bool IsOn
+    private string keyboardText = "CONTROL: KEYBOARD";
+    private string mouseText = "CONTROL: MOUSE + KEYBOARD";
+
+    private void OnEnable()
     {
-        get => _isOn;
-        set
-        {
-            _isOn = value;
-            Switch(_isOn);
-        }
+        toggle = GetComponent<Toggle>();
+        toggle.onValueChanged.AddListener(Switch);
     }
 
     private void Switch(bool value)
     {
-        if (value)
-        {
-            //firstToggle.isOn = 
-        }
-        else
-        {
-            
-        }
+        toggleText.text = value ? keyboardText : mouseText;
     }
 }
