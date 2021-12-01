@@ -120,6 +120,7 @@ public class ShipController : MonoBehaviour
     private void ShipDestroyed()
     {
         shipLife--;
+        currentTranslate = Vector3.zero;
         explodeAudio.Play();
         OnShipDestroyed?.Invoke(shipLife);
 
