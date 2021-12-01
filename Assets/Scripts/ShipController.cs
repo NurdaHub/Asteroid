@@ -6,10 +6,7 @@ public class ShipController : MonoBehaviour
 {
     public Action OnGameOver;
     public Action<int> OnShipDestroyed;
-
-    [SerializeField] private float rotateSpeed;
-    [SerializeField] private float impulseSpeed;
-    [SerializeField] private float angularSpeed;
+    
     [SerializeField] private BulletController bulletPrefab;
     [SerializeField] private Transform bulletSpawn;
     [SerializeField] private Transform bulletsParent;
@@ -17,28 +14,36 @@ public class ShipController : MonoBehaviour
     [SerializeField] private AudioSource explodeAudio;
 
     private AudioSource moveAudio;
-    private Rigidbody2D shipRB;
     private SpriteRenderer spriteRenderer;
     private PolygonCollider2D polygonCollider2D;
     private Pool<BulletController> bulletsPool;
+    private Vector3 currentTranslate;
     private int defaultBulletsCount = 10;
     private int shipLife = 3;
     private float blinkSpeed = 5f;
+    private float rotateSpeed = 2f;
+    private float impulseSpeed = 1.5f;
+    private float angularSpeed = 4f;
     private bool isMouseControl;
     private bool canBlink;
+    private bool canShoot = true;
+    private bool isShipActive;
 
     private void OnEnable()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         polygonCollider2D = GetComponent<PolygonCollider2D>();
         moveAudio = GetComponent<AudioSource>();
-        shipRB = GetComponent<Rigidbody2D>();
         bulletsPool = new Pool<BulletController>(bulletPrefab, defaultBulletsCount, bulletsParent);
     }
 
     public void Init()
     {
         RespawnShip();
+        spriteRenderer.enabled = true;
+        polygonCollider2D.enabled = true;
+        shipLife = 3;
+        isShipActive = true;
     }
 
     private void FixedUpdate()
@@ -49,26 +54,30 @@ public class ShipController : MonoBehaviour
 
     private void ShipControl()
     {
-        if (isMouseControl)
+        if (isShipActive)
         {
-            RotateWithMouse();
+            if (isMouseControl)
+            {
+                RotateWithMouse();
             
-            if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0))
+                    Shoot();
+            
+                if (Input.GetMouseButtonDown(1))
+                    SetImpulse();
+            }
+            else
+                RotateWithKeyboard();
+
+            if (Input.GetKeyDown(KeyCode.Space))
                 Shoot();
-            
-            if (Input.GetKey(KeyCode.Mouse1))
+        
+            if (Input.GetKeyDown(KeyCode.W))
                 SetImpulse();
+        
+            transform.Translate(currentTranslate, Space.World);
+            currentTranslate /= 1.005f;   
         }
-        else
-            RotateWithKeyboard();
-        
-        var vertical = Input.GetAxis("Vertical");
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-            Shoot();
-        
-        if (vertical > 0)
-            SetImpulse();
     }
 
     private void RotateWithMouse()
@@ -88,14 +97,19 @@ public class ShipController : MonoBehaviour
 
     private void SetImpulse()
     {
-        shipRB.AddForce(transform.up * impulseSpeed, ForceMode2D.Impulse);
+        currentTranslate = transform.up * Time.deltaTime * impulseSpeed; 
+        moveAudio.Play();
     }
 
     private void Shoot()
     {
-        shootAudio.Play();
-        var bullet = bulletsPool.GetFreeElement();
-        bullet.InitBullet(bulletSpawn.position, this.transform.rotation);
+        if (canShoot)
+        {
+            shootAudio.Play();
+            var bullet = bulletsPool.GetFreeElement();
+            bullet.InitBullet(bulletSpawn.position, this.transform.rotation);
+            StartCoroutine(WaitForShoot());
+        }
     }
 
     public void SwitchControl(bool value)
@@ -107,6 +121,7 @@ public class ShipController : MonoBehaviour
     {
         shipLife--;
         explodeAudio.Play();
+        OnShipDestroyed?.Invoke(shipLife);
 
         if (shipLife <= 0)
         {
@@ -115,13 +130,11 @@ public class ShipController : MonoBehaviour
             return;
         }
         
-        OnShipDestroyed?.Invoke(shipLife);
         RespawnShip();
     }
 
     private void RespawnShip()
     {
-        shipRB.Sleep();
         transform.position = Vector3.zero;
         StartCoroutine(Unbreakable());
     }
@@ -138,6 +151,7 @@ public class ShipController : MonoBehaviour
     {
         spriteRenderer.enabled = false;
         polygonCollider2D.enabled = false;
+        isShipActive = false;
     }
 
     private IEnumerator Unbreakable()
@@ -151,11 +165,20 @@ public class ShipController : MonoBehaviour
         polygonCollider2D.enabled = true;
         spriteRenderer.color = Color.white;
     }
+
+    private IEnumerator WaitForShoot()
+    {
+        canShoot = false;
+        
+        yield return new WaitForSeconds(0.33f);
+
+        canShoot = true;
+    }
     
     private void OnTriggerEnter2D(Collider2D collider)
     {
         var collisionGO = collider.gameObject;
-        var isDestroyer = collisionGO.CompareTag("Asteroid") || collisionGO.CompareTag("Bullet") || collisionGO.CompareTag("Alien");
+        var isDestroyer = collisionGO.CompareTag("Asteroid") || collisionGO.CompareTag("EnemyBullet") || collisionGO.CompareTag("Alien");
         
         if (isDestroyer)
             ShipDestroyed();

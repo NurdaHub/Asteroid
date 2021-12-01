@@ -17,11 +17,15 @@ public class AsteroidSpawner : MonoBehaviour
     private int poolAsteroidCount = 6;
     private float borderWidth;
     private float borderHeight;
+    
     private Pool<BigAsteroid> bigAsteroidsPool;
     private Pool<MiddleAsteroid> middleAsteroidsPool;
     private Pool<SmallAsteroid> smallAsteroidsPool;
 
     public static float maxDistance;
+    public static Action<Transform> OnBigAsteroidBroke;
+    public static Action<Transform> OnMiddleAsteroidBroke;
+    public static Action OnAsteroidBroke;
 
     private void Awake()
     {
@@ -30,6 +34,10 @@ public class AsteroidSpawner : MonoBehaviour
         bigAsteroidsPool = new Pool<BigAsteroid>(bigAsteroid, poolAsteroidCount, this.transform);
         middleAsteroidsPool = new Pool<MiddleAsteroid>(middleAsteroid, poolAsteroidCount, this.transform);
         smallAsteroidsPool = new Pool<SmallAsteroid>(smallAsteroid, poolAsteroidCount, this.transform);
+
+        OnBigAsteroidBroke += SpawnMiddleAsteroid;
+        OnMiddleAsteroidBroke += SpawnSmallAsteroid;
+        OnAsteroidBroke += AsteroidBroke;
     }
 
     public void Init()
@@ -41,7 +49,6 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void SpawnBigAsteroid()
     {
-        Debug.Log("SpawnMiddleAsteroid   " +currentAsteroidsCount);
         for (int i = 0; i < currentAsteroidsCount; i++)
         {
             var asteroid = bigAsteroidsPool.GetFreeElement();
@@ -49,7 +56,6 @@ public class AsteroidSpawner : MonoBehaviour
             var rotation = BigAsteroidRotation(position);
             
             asteroid.Initialize(position, rotation);
-            asteroid.OnBigAsteroidBroke += SpawnMiddleAsteroid;
         }
         
         currentAsteroidsCount++;
@@ -66,7 +72,6 @@ public class AsteroidSpawner : MonoBehaviour
             var rotation = CalculateRotation(_transform, i);
             
             asteroid.Initialize(position, rotation);
-            asteroid.OnMiddleAsteroidBroke += SpawnSmallAsteroid;
         }
     }
 
@@ -81,20 +86,13 @@ public class AsteroidSpawner : MonoBehaviour
             var rotation = CalculateRotation(_transform, i);
             
             asteroid.Initialize(position, rotation);
-            asteroid.OnSmallAsteroidBroke += SmallAsteroidBroke;
         }
     }
 
-    private void SmallAsteroidBroke()
+    private void AsteroidBroke()
     {
         smallAsteroidAudio.Play();
-
-        var hasActiveElement = CheckActiveAsteroid();
-        Debug.Log(hasActiveElement);
-        if (hasActiveElement)
-            return;
-
-        StartCoroutine(NextLevel());
+        CheckActiveAsteroid();
     }
 
     private IEnumerator NextLevel()
@@ -103,21 +101,22 @@ public class AsteroidSpawner : MonoBehaviour
         SpawnBigAsteroid();
     }
 
-    private bool CheckActiveAsteroid()
+    private void CheckActiveAsteroid()
     {
         var hasActiveSmallAsteroid = smallAsteroidsPool.HasActiveElement();
         if (hasActiveSmallAsteroid)
-            return true;
+            return;
         
         var hasActiveMiddleAsteroid = middleAsteroidsPool.HasActiveElement();
         if (hasActiveMiddleAsteroid)
-            return true;
+            return;
         
         var hasActiveBigAsteroid = bigAsteroidsPool.HasActiveElement();
         if (hasActiveBigAsteroid)
-            return true;
+            return;
 
-        return false;
+        Debug.Log("chek");
+        StartCoroutine(NextLevel());
     }
 
     private Vector3 CalculatePosition()
@@ -142,7 +141,7 @@ public class AsteroidSpawner : MonoBehaviour
     private Quaternion CalculateRotation(Transform _transform, int item)
     {
         var angle = item == 0 ? -45 : 45;
-        var asteroidRotation = Quaternion.Euler(0, 0, _transform.rotation.z + angle);
+        var asteroidRotation = Quaternion.Euler(0, 0, _transform.localRotation.z + angle);
 
         return asteroidRotation;
     }

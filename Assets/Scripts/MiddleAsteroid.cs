@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MiddleAsteroid : AsteroidBase
 {
-    public Action<Transform> OnMiddleAsteroidBroke;
     private int points = 50;
 
     protected override void OnTriggerEnter2D(Collider2D collider)
@@ -11,7 +9,7 @@ public class MiddleAsteroid : AsteroidBase
         if (collider.gameObject.CompareTag("Bullet"))
         {
             UIController.currentScore += points;
-            OnMiddleAsteroidBroke?.Invoke(transform);
+            AsteroidSpawner.OnMiddleAsteroidBroke?.Invoke(this.transform);
             gameObject.SetActive(false);
         }
         

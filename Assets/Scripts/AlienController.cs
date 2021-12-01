@@ -5,24 +5,33 @@ using Random = UnityEngine.Random;
 
 public class AlienController : MonoBehaviour
 {
-    private Rigidbody2D alienRB;
     private GameObject player;
     private Pool<BulletAlien> bulletsPool;
+    private Vector3 direction;
     private int points = 200;
+    private float alienSpeed;
 
     public Action OnAlienDestroyed;
 
     public void AlienInit(GameObject _player, bool _isLeft, Pool<BulletAlien> _bulletsPool)
     {
-        var alienSpeed = Random.Range(40f, 60f);
-        var direction = _isLeft ? transform.right : -transform.right;
-        
+        alienSpeed = Random.Range(1f, 2f);
+        direction = _isLeft ? transform.right : -transform.right;
         player = _player;
-        alienRB = GetComponent<Rigidbody2D>();
-        alienRB.AddForce(direction * alienSpeed);
         bulletsPool = _bulletsPool;
 
         StartCoroutine(WaitTime());
+    }
+    
+    private void Update()
+    {
+        MoveAlien();
+    }
+
+    private void MoveAlien()
+    {
+        var translate = direction * Time.deltaTime * alienSpeed; 
+        transform.Translate(translate);
     }
 
     private IEnumerator WaitTime()

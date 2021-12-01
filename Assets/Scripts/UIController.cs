@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Toggle controlToggle;
     [SerializeField] private GameObject menuGO;
     [SerializeField] private GameObject gameOverGO;
+    [SerializeField] private List<GameObject> lifeImgList;
 
     private bool isPaused;
 
@@ -27,6 +29,7 @@ public class UIController : MonoBehaviour
         controlToggle.onValueChanged.AddListener(SwitchControl);
         quitButton.onClick.AddListener(QuitGame);
 
+        shipController.OnShipDestroyed += ShipDestroyed;
         shipController.OnGameOver += GameOver;
     }
 
@@ -43,6 +46,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
         currentScore = 0;
 
+        ActivateShipLife();
         MenuViewShow(false);
         resumeButton.gameObject.SetActive(true);
         shipController.gameObject.SetActive(true);
@@ -76,15 +80,23 @@ public class UIController : MonoBehaviour
     {
         shipController.SwitchControl(isOn);
     }
-
-    private void SwitchSound(bool isOn)
-    {
-        AudioListener.volume = isOn ? 1f : 0f;
-    }
-
+    
     private void MenuViewShow(bool isActive)
     {
         menuGO.SetActive(isActive);
+    }
+
+    private void ShipDestroyed(int shipLife)
+    {
+        lifeImgList[shipLife].SetActive(false);
+    }
+
+    private void ActivateShipLife()
+    {
+        foreach (var lifeImg in lifeImgList)
+        {
+            lifeImg.SetActive(true);
+        }
     }
 
     private void GameOver()

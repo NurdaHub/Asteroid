@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class AlienSpawner : MonoBehaviour
 {
@@ -12,7 +10,6 @@ public class AlienSpawner : MonoBehaviour
 
     private int defaultBulletsCount = 3;
     private float borderWidth;
-    private float borderHeight;
     private float minPos;
     private bool isLeft;
     private Coroutine currentCoroutine;
@@ -47,7 +44,7 @@ public class AlienSpawner : MonoBehaviour
     private IEnumerator WaitTime()
     {
         var randomDelay = Random.Range(20, 40);
-        Debug.Log("randomDelay  " + randomDelay);
+        
         yield return new WaitForSeconds(randomDelay);
         
         AlienSpawn();
