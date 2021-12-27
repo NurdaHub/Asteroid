@@ -20,6 +20,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject gameOverGO;
     [SerializeField] private List<GameObject> lifeImgList;
 
+    private float playTimeScale = 1;
+    private float pauseTimeScale = 0;
+    private int startScore = 0;
     private bool isPaused;
 
     private void Awake()
@@ -43,8 +46,8 @@ public class UIController : MonoBehaviour
 
     private void StartGame()
     {
-        Time.timeScale = 1;
-        currentScore = 0;
+        Time.timeScale = playTimeScale;
+        currentScore = startScore;
 
         ActivateShipLife();
         MenuViewShow(false);
@@ -59,7 +62,7 @@ public class UIController : MonoBehaviour
     {
         if (!isPaused)
         {
-            Time.timeScale = 0;
+            Time.timeScale = pauseTimeScale;
             MenuViewShow(true);
             isPaused = true;
         }
@@ -67,7 +70,7 @@ public class UIController : MonoBehaviour
         {
             MenuViewShow(false);
             isPaused = false;
-            Time.timeScale = 1;
+            Time.timeScale = playTimeScale;
         }
     }
     

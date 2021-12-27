@@ -10,6 +10,9 @@ public class AlienController : MonoBehaviour
     private Vector3 direction;
     private int points = 200;
     private float alienSpeed;
+    private string asteroidTag = "Asteroid";
+    private string playerTag = "Player";
+    private string bulletTag = "Bullet";
 
     public Action OnAlienDestroyed;
 
@@ -69,12 +72,12 @@ public class AlienController : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        var isDestroyer = collider.CompareTag("Asteroid") || collider.CompareTag("Player");
+        var isDestroyer = collider.CompareTag(asteroidTag) || collider.CompareTag(playerTag);
         
         if (isDestroyer)
             OnBroke();
 
-        if (collider.CompareTag("Bullet"))
+        if (collider.CompareTag(bulletTag))
         {
             UIController.currentScore += points;
             OnBroke();

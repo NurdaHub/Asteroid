@@ -12,6 +12,7 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] private AudioSource middleAsteroidAudio;
     [SerializeField] private AudioSource smallAsteroidAudio;
 
+    private int startAsteroidsCount = 2;
     private int currentAsteroidsCount = 2;
     private int brokenPieceCount = 2;
     private int poolAsteroidCount = 6;
@@ -42,7 +43,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     public void Init()
     {
-        currentAsteroidsCount = 2;
+        currentAsteroidsCount = startAsteroidsCount;
         DeactivateAllPools();
         SpawnBigAsteroid();
     }
@@ -114,8 +115,7 @@ public class AsteroidSpawner : MonoBehaviour
         var hasActiveBigAsteroid = bigAsteroidsPool.HasActiveElement();
         if (hasActiveBigAsteroid)
             return;
-
-        Debug.Log("chek");
+        
         StartCoroutine(NextLevel());
     }
 

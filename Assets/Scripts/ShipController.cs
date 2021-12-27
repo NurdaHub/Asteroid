@@ -17,8 +17,13 @@ public class ShipController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PolygonCollider2D polygonCollider2D;
     private Pool<BulletController> bulletsPool;
+    
     private Vector3 currentTranslate;
+    private string asteroidTag = "Asteroid";
+    private string bulletTag = "EnemyBullet";
+    private string alienTag = "Alien";
     private int defaultBulletsCount = 10;
+    private int defaultshipLife = 3;
     private int shipLife = 3;
     private float blinkSpeed = 5f;
     private float rotateSpeed = 2f;
@@ -42,11 +47,11 @@ public class ShipController : MonoBehaviour
         RespawnShip();
         spriteRenderer.enabled = true;
         polygonCollider2D.enabled = true;
-        shipLife = 3;
+        shipLife = defaultshipLife;
         isShipActive = true;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         ShipControl();
         Blink();
@@ -76,7 +81,7 @@ public class ShipController : MonoBehaviour
                 SetImpulse();
         
             transform.Translate(currentTranslate, Space.World);
-            currentTranslate /= 1.005f;   
+            currentTranslate /= 1.001f;   
         }
     }
 
@@ -179,7 +184,7 @@ public class ShipController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         var collisionGO = collider.gameObject;
-        var isDestroyer = collisionGO.CompareTag("Asteroid") || collisionGO.CompareTag("EnemyBullet") || collisionGO.CompareTag("Alien");
+        var isDestroyer = collisionGO.CompareTag(asteroidTag) || collisionGO.CompareTag(bulletTag) || collisionGO.CompareTag(alienTag);
         
         if (isDestroyer)
             ShipDestroyed();
