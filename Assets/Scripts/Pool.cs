@@ -3,32 +3,28 @@ using UnityEngine;
 
 public class Pool<T> where T : MonoBehaviour
 {
-    public T prefab { get; }
-    public Transform prefabParent { get; }
-
+    private T prefab;
+    private Transform prefabParent;
     private List<T> poolList;
 
-    public Pool(T _prefab, int _count, Transform _prefabParent)
+    public Pool(T newPrefab, int count, Transform newPrefabParent)
     {
-        this.prefab = _prefab;
-        this.prefabParent = _prefabParent;
-        
-        CreatePool(_count);
+        prefab = newPrefab;
+        prefabParent = newPrefabParent;
+        CreatePool(count);
     }
 
-    private void CreatePool(int _count)
+    private void CreatePool(int count)
     {
         poolList = new List<T>();
 
-        for (int i = 0; i < _count; i++)
-        {
+        for (int i = 0; i < count; i++)
             CreateObject();
-        }
     }
 
     private T CreateObject(bool isActive = false)
     {
-        var currentObject = Object.Instantiate(this.prefab, this.prefabParent);
+        var currentObject = Object.Instantiate(prefab, prefabParent);
         currentObject.gameObject.SetActive(isActive);
         poolList.Add(currentObject);
 
@@ -47,9 +43,8 @@ public class Pool<T> where T : MonoBehaviour
                 return true;
             }
         }
-
         element = null;
-
+        
         return false;
     }
 

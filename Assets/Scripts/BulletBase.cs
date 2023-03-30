@@ -35,7 +35,7 @@ public class BulletBase : MonoBehaviour
         
         currentDistance += distance;
 
-        if (currentDistance > AsteroidSpawner.maxDistance)
+        if (currentDistance > AsteroidSpawner.MaxDistance)
         {
             this.gameObject.SetActive(false);
             currentDistance = 0;

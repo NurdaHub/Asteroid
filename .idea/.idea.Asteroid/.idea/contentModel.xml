@@ -17,12 +17,12 @@
           <e p="AlienSpawner.cs" t="Include" />
           <e p="AsteroidBase.cs" t="Include" />
           <e p="AsteroidSpawner.cs" t="Include" />
+          <e p="AverageAsteroid.cs" t="Include" />
           <e p="BigAsteroid.cs" t="Include" />
           <e p="BorderSize.cs" t="Include" />
           <e p="BulletAlien.cs" t="Include" />
           <e p="BulletBase.cs" t="Include" />
           <e p="BulletController.cs" t="Include" />
-          <e p="MiddleAsteroid.cs" t="Include" />
           <e p="OutOfBorder.cs" t="Include" />
           <e p="Pool.cs" t="Include" />
           <e p="ShipController.cs" t="Include" />
@@ -59,6 +59,7 @@
           </e>
           <e p="Sprites" t="Include">
             <e p="EmojiOne Attribution.txt" t="Include" />
+            <e p="EmojiOne.json" t="Include" />
           </e>
         </e>
       </e>

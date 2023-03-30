@@ -6,10 +6,10 @@ using Random = UnityEngine.Random;
 public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private BigAsteroid bigAsteroid;
-    [SerializeField] private MiddleAsteroid middleAsteroid;
+    [SerializeField] private AverageAsteroid averageAsteroid;
     [SerializeField] private SmallAsteroid smallAsteroid;
     [SerializeField] private AudioSource bigAsteroidAudio;
-    [SerializeField] private AudioSource middleAsteroidAudio;
+    [SerializeField] private AudioSource averageAsteroidAudio;
     [SerializeField] private AudioSource smallAsteroidAudio;
 
     private int startAsteroidsCount = 2;
@@ -19,25 +19,26 @@ public class AsteroidSpawner : MonoBehaviour
     private float borderWidth;
     private float borderHeight;
     
+    private Camera CurrentCamera => Camera.current;
     private Pool<BigAsteroid> bigAsteroidsPool;
-    private Pool<MiddleAsteroid> middleAsteroidsPool;
+    private Pool<AverageAsteroid> averageAsteroidsPool;
     private Pool<SmallAsteroid> smallAsteroidsPool;
 
-    public static float maxDistance;
+    public static float MaxDistance;
     public static Action<Transform> OnBigAsteroidBroke;
-    public static Action<Transform> OnMiddleAsteroidBroke;
+    public static Action<Transform> OnAverageAsteroidBroke;
     public static Action OnAsteroidBroke;
 
     private void Awake()
     {
-        CalculateBoreder();
+        CalculateBorder();
         
-        bigAsteroidsPool = new Pool<BigAsteroid>(bigAsteroid, poolAsteroidCount, this.transform);
-        middleAsteroidsPool = new Pool<MiddleAsteroid>(middleAsteroid, poolAsteroidCount, this.transform);
-        smallAsteroidsPool = new Pool<SmallAsteroid>(smallAsteroid, poolAsteroidCount, this.transform);
+        bigAsteroidsPool = new Pool<BigAsteroid>(bigAsteroid, poolAsteroidCount, transform);
+        averageAsteroidsPool = new Pool<AverageAsteroid>(averageAsteroid, poolAsteroidCount, transform);
+        smallAsteroidsPool = new Pool<SmallAsteroid>(smallAsteroid, poolAsteroidCount, transform);
 
-        OnBigAsteroidBroke += SpawnMiddleAsteroid;
-        OnMiddleAsteroidBroke += SpawnSmallAsteroid;
+        OnBigAsteroidBroke += SpawnAverageAsteroid;
+        OnAverageAsteroidBroke += SpawnSmallAsteroid;
         OnAsteroidBroke += AsteroidBroke;
     }
 
@@ -62,13 +63,13 @@ public class AsteroidSpawner : MonoBehaviour
         currentAsteroidsCount++;
     }
 
-    private void SpawnMiddleAsteroid(Transform _transform)
+    private void SpawnAverageAsteroid(Transform _transform)
     {
         bigAsteroidAudio.Play();
         
         for (int i = 0; i < brokenPieceCount; i++)
         {
-            var asteroid = middleAsteroidsPool.GetFreeElement();
+            var asteroid = averageAsteroidsPool.GetFreeElement();
             var position = _transform.localPosition;
             var rotation = CalculateRotation(_transform, i);
             
@@ -78,7 +79,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void SpawnSmallAsteroid(Transform _transform)
     {
-        middleAsteroidAudio.Play();
+        averageAsteroidAudio.Play();
         
         for (int i = 0; i < brokenPieceCount; i++)
         {
@@ -108,8 +109,8 @@ public class AsteroidSpawner : MonoBehaviour
         if (hasActiveSmallAsteroid)
             return;
         
-        var hasActiveMiddleAsteroid = middleAsteroidsPool.HasActiveElement();
-        if (hasActiveMiddleAsteroid)
+        var hasActiveAverageAsteroid = averageAsteroidsPool.HasActiveElement();
+        if (hasActiveAverageAsteroid)
             return;
         
         var hasActiveBigAsteroid = bigAsteroidsPool.HasActiveElement();
@@ -122,7 +123,7 @@ public class AsteroidSpawner : MonoBehaviour
     private Vector3 CalculatePosition()
     {
         var vertical = Random.Range(0, 2) != 0;
-        var currentSpawnPosition = new Vector3();
+        Vector3 currentSpawnPosition;
 
         if (vertical)
         {
@@ -159,17 +160,17 @@ public class AsteroidSpawner : MonoBehaviour
     private void DeactivateAllPools()
     {
         bigAsteroidsPool.DeactivateAllElements();
-        middleAsteroidsPool.DeactivateAllElements();
+        averageAsteroidsPool.DeactivateAllElements();
         smallAsteroidsPool.DeactivateAllElements();
     }
 
-    private void CalculateBoreder()
+    private void CalculateBorder()
     {
-        float height = 2f * Camera.main.orthographicSize;
-        float width = height * Camera.main.aspect;
+        float height = 2f * CurrentCamera.orthographicSize;
+        float width = height * CurrentCamera.aspect;
 
         borderWidth = width / 2f + 1f;
         borderHeight = height / 2f + 1f;
-        maxDistance = width;
+        MaxDistance = width;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MiddleAsteroid : AsteroidBase
+public class AverageAsteroid : AsteroidBase
 {
     private int points = 50;
     private string bulletTag = "Bullet";
@@ -10,7 +10,7 @@ public class MiddleAsteroid : AsteroidBase
         if (collider.gameObject.CompareTag(bulletTag))
         {
             UIController.currentScore += points;
-            AsteroidSpawner.OnMiddleAsteroidBroke?.Invoke(this.transform);
+            AsteroidSpawner.OnAverageAsteroidBroke?.Invoke(this.transform);
             gameObject.SetActive(false);
         }
         

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8976739407226528154}
   - component: {fileID: 3572984434719325708}
   m_Layer: 9
-  m_Name: MiddleAsteroid
+  m_Name: AverageAsteroid
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
