@@ -1276,6 +1276,7 @@ MonoBehaviour:
   bulletsParent: {fileID: 900133843}
   shootAudio: {fileID: 1234006630}
   explodeAudio: {fileID: 66055703}
+  playerLife: {fileID: 1582124624}
 --- !u!212 &501906187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2144,7 +2145,6 @@ GameObject:
   - component: {fileID: 921940569}
   - component: {fileID: 921940568}
   - component: {fileID: 921940567}
-  - component: {fileID: 921940571}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -2237,32 +2237,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &921940571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921940566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e8d7e163b210e349ac49609f6129cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shipController: {fileID: 501906186}
-  alienSpawner: {fileID: 1906394835}
-  asteroidSpawner: {fileID: 2004673068}
-  playButton: {fileID: 2020428761}
-  resumeButton: {fileID: 411788661}
-  quitButton: {fileID: 910987183}
-  scoreText: {fileID: 222941978}
-  controlToggle: {fileID: 1194515380}
-  menuGO: {fileID: 1965132653}
-  gameOverGO: {fileID: 1455719782}
-  lifeImgList:
-  - {fileID: 1191919337}
-  - {fileID: 582590142}
-  - {fileID: 1777207529}
 --- !u!1 &1053167439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,6 +2889,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1582124622}
+  - component: {fileID: 1582124625}
+  - component: {fileID: 1582124624}
+  - component: {fileID: 1582124623}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -2938,6 +2915,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1582124623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582124621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a487b64840462196904f9a4b35728d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 222941978}
+--- !u!114 &1582124624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582124621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0438b2b5c4f64db6814aae5d1c256019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeImgList:
+  - {fileID: 1191919337}
+  - {fileID: 582590142}
+  - {fileID: 1777207529}
+--- !u!114 &1582124625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582124621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf75d7aff82d4e368972ccd7416a6d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuGO: {fileID: 1965132653}
+  gameOverGO: {fileID: 1455719782}
+  playButton: {fileID: 2020428761}
+  resumeButton: {fileID: 411788661}
+  quitButton: {fileID: 910987183}
+  controlToggle: {fileID: 1194515380}
+  delay: 5
 --- !u!1 &1777207529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3135,6 +3160,55 @@ MonoBehaviour:
   bulletAlien: {fileID: 6869572505644610882, guid: 1ddfbfbb50fb0944cb2db2266ad12161,
     type: 3}
   explodeAudio: {fileID: 66055703}
+--- !u!1 &1938392538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1938392540}
+  - component: {fileID: 1938392539}
+  m_Layer: 0
+  m_Name: Statemachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1938392539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938392538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073dea79b90243e787b58d648bbc7811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipController: {fileID: 501906186}
+  alienSpawner: {fileID: 1906394835}
+  asteroidSpawner: {fileID: 2004673068}
+  mainMenu: {fileID: 1582124625}
+  playerLife: {fileID: 1582124624}
+--- !u!4 &1938392540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938392538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1965132653
 GameObject:
   m_ObjectHideFlags: 0

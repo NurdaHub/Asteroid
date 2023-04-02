@@ -1,28 +1,31 @@
 ﻿using UI;
 using UnityEngine;
 
-public class SmallAsteroid : AsteroidBase
+namespace Asteroid
 {
-    private int points = 100;
-    private string bulletTag = "Bullet";
-
-    private void OnBroke()
+    public class SmallAsteroid : AsteroidBase
     {
-        gameObject.SetActive(false);
-        AsteroidSpawner.OnAsteroidBroke?.Invoke();
-    }
-    
-    protected override void OnTriggerEnter2D(Collider2D collider)
-    {
-        var isDestroyer = collider.CompareTag(alienTag) || collider.CompareTag(playerTag);
-        
-        if (isDestroyer)
-            OnBroke();
+        private int points = 100;
+        private string bulletTag = "Bullet";
 
-        if (collider.CompareTag(bulletTag))
+        private void OnBroke()
         {
-            UIController.currentScore += points;
-            OnBroke();
+            gameObject.SetActive(false);
+            AsteroidSpawner.OnAsteroidBroke?.Invoke();
+        }
+    
+        protected override void OnTriggerEnter2D(Collider2D collider)
+        {
+            var isDestroyer = collider.CompareTag(alienTag) || collider.CompareTag(playerTag);
+        
+            if (isDestroyer)
+                OnBroke();
+
+            if (collider.CompareTag(bulletTag))
+            {
+                PlayerScore.Instance.UpdateScore(points);
+                OnBroke();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ namespace UI
 {
     public class UIController : MonoBehaviour
     {
-        public static int currentScore = 0;
+        public static int CurrentScore = 0;
     
         [SerializeField] private ShipController shipController;
         [SerializeField] private AlienSpawner alienSpawner;
@@ -34,13 +35,13 @@ namespace UI
             controlToggle.onValueChanged.AddListener(SwitchControl);
             quitButton.onClick.AddListener(QuitGame);
 
-            shipController.OnShipDestroyed += ShipDestroyed;
-            shipController.OnGameOver += GameOver;
+            //shipController.OnShipDestroyed += ShipDestroyed;
+            //shipController.OnGameOver += GameOver;
         }
 
         private void Update()
         {
-            scoreText.text = currentScore.ToString();
+            scoreText.text = CurrentScore.ToString();
         
             if (Input.GetKeyDown(KeyCode.Escape))
                 ResumeGame();
@@ -49,7 +50,7 @@ namespace UI
         private void StartGame()
         {
             Time.timeScale = playTimeScale;
-            currentScore = startScore;
+            CurrentScore = startScore;
 
             ActivateShipLife();
             MenuViewShow(false);

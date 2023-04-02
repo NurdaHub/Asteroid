@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Alien;
 using UnityEngine;
 
 public class AlienSpawner : MonoBehaviour

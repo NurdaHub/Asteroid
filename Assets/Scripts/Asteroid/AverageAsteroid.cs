@@ -1,20 +1,23 @@
 ﻿using UI;
 using UnityEngine;
 
-public class AverageAsteroid : AsteroidBase
+namespace Asteroid
 {
-    private int points = 50;
-    private string bulletTag = "Bullet";
-
-    protected override void OnTriggerEnter2D(Collider2D collider)
+    public class AverageAsteroid : AsteroidBase
     {
-        if (collider.gameObject.CompareTag(bulletTag))
+        private int points = 50;
+        private string bulletTag = "Bullet";
+
+        protected override void OnTriggerEnter2D(Collider2D collider)
         {
-            UIController.currentScore += points;
-            AsteroidSpawner.OnAverageAsteroidBroke?.Invoke(this.transform);
-            gameObject.SetActive(false);
-        }
+            if (collider.gameObject.CompareTag(bulletTag))
+            {
+                PlayerScore.Instance.UpdateScore(points);
+                AsteroidSpawner.OnAverageAsteroidBroke?.Invoke(this.transform);
+                gameObject.SetActive(false);
+            }
         
-        base.OnTriggerEnter2D(collider);
+            base.OnTriggerEnter2D(collider);
+        }
     }
 }

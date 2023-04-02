@@ -23,65 +23,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72d4cb5b-f9c4-46ff-8383-9309ec5645c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ButtonAnimator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ButtonAnimator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/MainMenu.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/MainMenu.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/PlayerLife.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/PlayerLife.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/PlayerScore.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/PlayerScore.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Asteroid/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Asteroid/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Asteroid/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Asteroid/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AlienController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AlienController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AlienSpawner.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AlienSpawner.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AsteroidBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AsteroidBase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AsteroidSpawner.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AsteroidSpawner.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AverageAsteroid.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AverageAsteroid.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BigAsteroid.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BigAsteroid.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BorderSize.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BorderSize.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BulletAlien.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BulletAlien.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BulletBase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BulletBase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BulletController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BulletController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OutOfBorder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/OutOfBorder.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pool.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShipController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShipController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SmallAsteroid.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SmallAsteroid.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ToggleSwitcher.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ToggleSwitcher.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UIController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid1.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Asteroid2.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Bullet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Bullet.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/RedBullet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/RedBullet.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0-prev.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker1.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Alien/AlienController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Alien/AlienController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Alien/AlienSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Alien/AlienSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Asteroid/AsteroidSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Asteroid/AsteroidSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Asteroid/AverageAsteroid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Asteroid/AverageAsteroid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Asteroid/BigAsteroid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Asteroid/BigAsteroid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Asteroid/SmallAsteroid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Asteroid/SmallAsteroid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/ShipController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/ShipController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/ButtonAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ButtonAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker2.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker2.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logs/AssetImportWorker3.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/AssetImportWorker3.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-AssetImportWorker0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe1.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe2.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe3.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe4.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe5.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe6.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/shadercompiler-UnityShaderCompiler.exe7.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,8 +80,18 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/AsteroidSpawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/ToggleSwitcher.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/PointerDetector.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/ButtonAnimator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Asteroid/AsteroidSpawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/MainMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/PlayerLife.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Player/ShipController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Asteroid/AverageAsteroid.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Asteroid/BigAsteroid.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Asteroid/SmallAsteroid.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Alien/AlienController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/PlayerScore.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/StateMachine.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/ButtonAnimator.cs" />
       </list>
     </option>
   </component>
@@ -192,7 +167,7 @@
       <workItem from="1651244540276" duration="1358000" />
       <workItem from="1662113030032" duration="1191000" />
       <workItem from="1680169759594" duration="5884000" />
-      <workItem from="1680439687861" duration="3356000" />
+      <workItem from="1680439687861" duration="13773000" />
     </task>
     <servers />
   </component>
@@ -221,5 +196,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1680442112829" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1680455466189">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1600.860/0.0.1920.1040@0.0.1920.1040" timestamp="1680455466189" />
   </component>
 </project>

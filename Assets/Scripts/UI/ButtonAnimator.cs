@@ -11,12 +11,12 @@ namespace UI
 
         public void EnterAnimation()
         {
-            transform.DOScale(scale, animDuration);
+            transform.DOScale(scale, animDuration).SetUpdate(true);
         }
         
         public void ExitAnimation()
         {
-            transform.DOScale(defaultScale, animDuration);
+            transform.DOScale(defaultScale, animDuration).SetUpdate(true);
         }
     }
 }

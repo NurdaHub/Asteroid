@@ -55,8 +55,12 @@
           <e p="Pool" t="Include">
             <e p="Pool.cs" t="Include" />
           </e>
+          <e p="StateMachine.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="ButtonAnimator.cs" t="Include" />
+            <e p="MainMenu.cs" t="Include" />
+            <e p="PlayerLife.cs" t="Include" />
+            <e p="PlayerScore.cs" t="Include" />
             <e p="ToggleSwitcher.cs" t="Include" />
             <e p="UIController.cs" t="Include" />
           </e>
